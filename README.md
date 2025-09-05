@@ -34,7 +34,7 @@ This project provides a Lambda-based UDF that enables Amazon Athena to decrypt s
 
 3. **Use in Athena**
    ```sql
-   SELECT decrypt(encrypted_field, 'arn:aws:kms:region:account:key/key-id') 
+   SELECT decrypt(encrypted_field, 'arn:aws:kms:<region>:<account-id>:key/<key-id>') 
    FROM your_table;
    ```
 
@@ -62,6 +62,6 @@ Example:
 ```sql
 SELECT 
     name,
-    decrypt(encrypted_ssn, 'arn:aws:kms:us-east-1:123456789012:key/12345678-1234-1234-1234-123456789012') as ssn
+    decrypt(encrypted_ssn, 'arn:aws:kms:<region>:<account-id>:key/<key-id>') as ssn
 FROM customer_data;
 ```

@@ -52,5 +52,7 @@ USING EXTERNAL FUNCTION decrypt(t1 varchar, t2 varchar)
 RETURNS varchar 
 LAMBDA 'athena-udf-gluepii'
 SELECT 
-       decrypt(ssn, 'arn:aws-cn:kms:cn-northwest-1:842632050632:key/315dc82c-249b-499e-942b-24be302c43f2')  ssnplaintext,*
+       decrypt(ssn, 'arn:aws-cn:kms:<region>:<account-id>:key/<key-id')  ssnplaintext,*
 FROM databrew_pii_encrypted_data
+
+arn:aws-cn:kms:<region>:<account-id>:key/<key-id
