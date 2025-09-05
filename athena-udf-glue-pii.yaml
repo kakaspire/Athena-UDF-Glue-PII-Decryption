@@ -1,0 +1,33 @@
+Transform: 'AWS::Serverless-2016-10-31'
+Metadata:
+  'AWS::ServerlessRepo::Application':
+    Name: GLUEPIIUDF
+    Description: 'This is a lambda defined as UDF in athena for the decryption of fields encrypted in Glue Databrew'
+    Author: 'Liang Zhang'
+    Labels:
+      - athena-udf-gluepii
+    SemanticVersion: 1.0.0
+Parameters:
+  LambdaFunctionName:
+    Description: 'The name of the Lambda function that will contain your UDFs.'
+    Type: String
+    Default: "athena-udf-gluepii"
+  LambdaTimeout:
+    Description: 'Maximum Lambda invocation runtime in seconds. (min 1 - 900 max)'
+    Default: 900
+    Type: Number
+  LambdaMemory:
+    Description: 'Lambda memory in MB (min 128 - 3008 max).'
+    Default: 3072
+    Type: Number
+Resources:
+  ConnectorConfig:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: !Ref LambdaFunctionName
+      Handler: "com.mycompany.tools.athena.AthenaPIIUDF"
+      CodeUri: "./target/athena-udf-pii-decryption-1.0-SNAPSHOT.jar"
+      Description: "This is a lambda defined as UDF in athena for Glue PII decryption."
+      Runtime: java11
+      Timeout: !Ref LambdaTimeout
+      MemorySize: !Ref LambdaMemory
